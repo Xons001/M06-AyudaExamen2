@@ -29,12 +29,12 @@ public class Principal {
 
 	static String usuari = "root";
 	static String contr = "";
-	static String url = "jdbc:mysql://localhost:3306/empleados";
-	
+	static String url = "jdbc:mysql://localhost:3306/empleados?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+
 	private static void conexionMySQL() {
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println("Hola");
 			System.out.println("Driver cargado correctamente");
 			Connection conn = DriverManager.getConnection(url, usuari, contr);
@@ -43,7 +43,7 @@ public class Principal {
 			System.out.println("EJERCICIO 1");
 			insertDepartamento(conn);
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("No se ha podido conectar a la base de datos");		
 		}
 	}
 
@@ -61,7 +61,7 @@ public class Principal {
 
 			preparedStatement.executeUpdate();
 			System.out.println("Departamento DEVOPS insertado");
-			
+
 			// Insertar empleado
 			preparedStatement2 = conn.prepareStatement("insert into empleados values (?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -76,17 +76,15 @@ public class Principal {
 
 			preparedStatement2.executeUpdate();
 			System.out.println("Empleado Lopez insertado");
-			
+
 			System.out.println("--------------------------------------------------");
 		} catch (SQLIntegrityConstraintViolationException e) {
 			System.out.println("Los datos ya estan insertados");
-			e.printStackTrace();
 		} catch (SQLException e) {
 			System.out.println("No encuentra las bases de datos");
-			e.printStackTrace();
 		} 
 	}
-	
+
 	public static void storeProcedureUpdate(Float comision) {
 		CallableStatement cs;
 
