@@ -50,7 +50,7 @@ public class Principal {
 			insertDepartamento(conn);
 
 			System.out.println("EJERCICIO 2");
-			//storeProcedureUpdate();
+			storeProcedureUpdate();
 
 			System.out.println("EJERCICIO 3");
 			consultaEmpleadosXDepartamento();
